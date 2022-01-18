@@ -60,14 +60,14 @@ export default function App() {
             iconName = focused
               ? 'home'
               : 'home';
-          } else if (route.name === 'Recherche') {
-            iconName = focused ? 'search' : 'search';
+          } else if (route.name === 'Listen') {
+            iconName = focused ? 'headphones' : 'headphones';
           }
             else if (route.name === 'A propos') {
             iconName = focused ? 'comments' : 'comments';
           }
 
-          return <Icon name={iconName} size={size} color={color} />;
+          return <Icon name={iconName} size={35} color={color} />;
         },
         tabBarActiveTintColor: 'orange',
         tabBarInactiveTintColor: 'white',
@@ -82,7 +82,7 @@ export default function App() {
       })}
       >
         <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
-        <Tab.Screen name="Recherche" component={Search} options={{ headerShown: false }} />
+        <Tab.Screen name="Listen" component={Search} options={{ headerShown: false }} />
         <Tab.Screen name="A propos" component={About} options={{ headerShown: false }} />
       </Tab.Navigator>
     </NavigationContainer>
