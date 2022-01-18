@@ -1,13 +1,15 @@
-import * as React from "react";
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import Search from './components/Search'
 
 function Home({navigation}) {
   return (
     <LinearGradient 
-    style={styles.container}
+    style={styles.containerHome}
     colors={['#c31432', '#240b36']}>
 
     <View>
@@ -23,56 +25,80 @@ function Home({navigation}) {
   )
 }
 
-function Search({navigation}) {
+
+
+function About() {
   return (
     <LinearGradient
     start={{x: 0, y: 0}} end={{x: 1, y: 0}}
     colors={['#c31432', '#240b36']}
-    style={styles.container}
+    style={styles.containerHome}
     >
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={styles.title}>
-        Quelle Berceuse voulez vous écouter ?
+      <Text style={styles.textAbout}>
+        Cette application permet de trouver une berceuse et de pouvoir l'écouter.
       </Text>
-      <TextInput
-        label="Berceuse"
-        placeholder="Votre berceuse !"
-        style={styles.input}
-      />
+      <Text style={styles.textAbout}>Copyright© 2022: Maxime Paupy</Text>
     </View>
     </LinearGradient>
   )
 }
 
-function About() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis aspernatur assumenda rem atque omnis incidunt dolorem necessitatibus blanditiis ipsa vel!
-      </Text>
-    </View>
-  )
-}
-
 const Tab = createBottomTabNavigator();
 
+
 export default function App() {
+
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Recherche" component={Search} />
-        <Tab.Screen name="A propos" component={About} />
+      <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = focused
+              ? 'home'
+              : 'home';
+          } else if (route.name === 'Recherche') {
+            iconName = focused ? 'search' : 'search';
+          }
+            else if (route.name === 'A propos') {
+            iconName = focused ? 'comments' : 'comments';
+          }
+
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: 'orange',
+        tabBarInactiveTintColor: 'white',
+        tabBarStyle:{
+          backgroundColor: 'transparent',
+          borderTopWidth: 0,
+          position: 'absolute',
+          elevation:0,
+          bottom: 10,
+        }
+        
+      })}
+      >
+        <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
+        <Tab.Screen name="Recherche" component={Search} options={{ headerShown: false }} />
+        <Tab.Screen name="A propos" component={About} options={{ headerShown: false }} />
       </Tab.Navigator>
     </NavigationContainer>
   )
 }
 
 const styles = StyleSheet.create({
-   container: {
-     flex:1, 
-      justifyContent:'center',
-      alignItems:'center',
+   containerHome: {
+     flex:1,
+     justifyContent: 'center',
+     alignItems: 'center',
+   },
+   mainContainer: {
+   flex:1, 
+   justifyContent: 'center',
+   alignItems: 'center',
    },
     title: {
       fontSize: 30,
@@ -85,13 +111,19 @@ const styles = StyleSheet.create({
       color:'#6dd5ed',
       fontFamily: 'RobotoCondensed-Regular'
     },
-    input: {
-      marginVertical:15,
-      borderColor: '#fff',
+    btn: {
+      borderColor: '#000',
       backgroundColor: '#fff',
-      borderRadius: 20,
-      width:300,
-    }
-
+      padding: 15,
+      borderRadius: 25,
+      width: 150,
+      margin:10,
+    },
+    textAbout: {
+      fontSize: 20,
+      color: '#fff',
+      fontFamily:'RobotoCondensed-Regular',
+      margin: 20,
+    },
 })
 

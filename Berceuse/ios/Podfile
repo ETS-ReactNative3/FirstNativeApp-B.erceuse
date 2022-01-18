@@ -12,6 +12,10 @@ target 'Berceuse' do
     :hermes_enabled => false
   )
 
+  pod 'RNSoundPlayer', :path => '../node_modules/react-native-sound-player'
+
+  pod 'react-native-track-player', :path => '../node_modules/react-native-track-player'
+
   target 'BerceuseTests' do
     inherit! :complete
     # Pods for testing
